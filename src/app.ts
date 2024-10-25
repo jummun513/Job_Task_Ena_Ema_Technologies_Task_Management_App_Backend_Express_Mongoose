@@ -12,7 +12,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: ['http://localhost:5050', `${config.client_url}`],
+    origin: [
+      'http://localhost:5050',
+      `${config.client_url_local}`,
+      `${config.client_url_production}`,
+    ],
     credentials: true,
   })
 );
