@@ -40,13 +40,19 @@ const getExpectedTasksFromDB = async (query: Record<string, unknown>) => {
   //   filtering basis on tags name
   let tagQueryObj = { ...priorityQueryObj };
   if (query?.tags) {
-    tagQueryObj = { 'tags.title': query.tags, ...priorityQueryObj };
+    tagQueryObj = {
+      'tags.title': { $all: (query?.tags as string).split(',') },
+      ...priorityQueryObj,
+    };
   }
 
   // Perform the search query
-  const filterQuery = searchQuery.find(tagQueryObj, {
-    __v: 0,
-  });
+  const filterQuery = searchQuery.find(
+    { ...tagQueryObj, isDeleted: false },
+    {
+      __v: 0,
+    }
+  );
 
   //pagination and limiting
   let page = 1;
@@ -62,7 +68,7 @@ const getExpectedTasksFromDB = async (query: Record<string, unknown>) => {
   const paginateQuery = filterQuery.skip(skip);
   const result = await paginateQuery.limit(limit);
 
-  const count = await TaskModel.countDocuments();
+  const count = await TaskModel.countDocuments({ isDeleted: false });
 
   return { data: result, count: count };
 };

@@ -12,5 +12,7 @@ router.post(
 );
 
 router.get('/:taskId', taskControllers.getSingleTask);
+router.delete('/:taskId', taskControllers.softDeleteSingleTask);
+router.patch('/:taskId', taskControllers.partialUpdateSingleTask);
 
 export const taskRoutes = router;

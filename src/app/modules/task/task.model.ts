@@ -46,6 +46,10 @@ const taskSchema = new Schema<TTask>(
       type: Boolean,
       default: false,
     },
+    deletedAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

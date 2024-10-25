@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import catchAsync from '../../../utils/catchAsync';
 import sendResponse from '../../../utils/sendResponse';
-import { tasksServices } from './task.services';
+import { tasksServices } from './tasks.services';
 
 const getExpectedTasks = catchAsync(async (req, res) => {
   const result = await tasksServices.getExpectedTasksFromDB(req.query);

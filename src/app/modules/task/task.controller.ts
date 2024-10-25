@@ -24,7 +24,34 @@ const getSingleTask = catchAsync(async (req, res) => {
   });
 });
 
+const softDeleteSingleTask = catchAsync(async (req, res) => {
+  const { taskId } = req.params;
+  const result = await taskServices.softDeleteSingleTaskFromDB(taskId);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Task deleted successfully!',
+    data: result,
+  });
+});
+
+const partialUpdateSingleTask = catchAsync(async (req, res) => {
+  const { taskId } = req.params;
+  const result = await taskServices.partialUpdateSingleTaskFromDB(
+    taskId,
+    req?.body
+  );
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Task deleted successfully!',
+    data: result,
+  });
+});
+
 export const taskControllers = {
   createTask,
   getSingleTask,
+  softDeleteSingleTask,
+  partialUpdateSingleTask,
 };

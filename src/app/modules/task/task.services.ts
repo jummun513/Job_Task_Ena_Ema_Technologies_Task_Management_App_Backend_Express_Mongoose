@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { TTask } from './task.interface';
 import { TaskModel } from './task.model';
@@ -21,7 +22,22 @@ const getSingleTaskFromDB = async (taskId: string) => {
   return result;
 };
 
+const softDeleteSingleTaskFromDB = async (taskId: string) => {
+  await TaskModel.findByIdAndUpdate(taskId, { isDeleted: true });
+  return null;
+};
+
+const partialUpdateSingleTaskFromDB = async (
+  taskId: string,
+  data: Record<string, any>
+) => {
+  await TaskModel.findByIdAndUpdate(taskId, data);
+  return null;
+};
+
 export const taskServices = {
   createTaskIntoDB,
   getSingleTaskFromDB,
+  softDeleteSingleTaskFromDB,
+  partialUpdateSingleTaskFromDB,
 };

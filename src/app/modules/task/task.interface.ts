@@ -14,4 +14,5 @@ export type TTask = {
   status: 'completed' | 'pending';
   isReminder: boolean;
   isDeleted: boolean;
+  deletedAt: null | Date;
 };
