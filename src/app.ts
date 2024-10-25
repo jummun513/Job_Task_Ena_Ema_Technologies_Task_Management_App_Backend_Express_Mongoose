@@ -3,6 +3,7 @@ import cors from 'cors';
 import notFound from './app/middlewares/notFound';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import router from './app/routes';
+import config from './config';
 
 const app: Application = express();
 
@@ -11,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: ['http://localhost:5050', 'http://localhost:3000'],
+    origin: ['http://localhost:5050', `${config.client_url}`],
     credentials: true,
   })
 );
